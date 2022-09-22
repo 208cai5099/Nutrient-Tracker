@@ -1,5 +1,3 @@
-#U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food and Nutrient Database for Dietary Studies 2017-2018. Food Surveys Research Group Home Page, http://www.ars.usda.gov/nea/bhnrc/fsrg
-
 # Set up working environment
 import pandas as pd
 
