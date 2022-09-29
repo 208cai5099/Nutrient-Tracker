@@ -8,6 +8,7 @@ U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food a
 2017-2018. Food Surveys Research Group Home Page, http://www.ars.usda.gov/nea/bhnrc/fsrg
 
 data_processing.py
+
 This script processes the dataset into a working database that can be referenced by the nutrient tracker. Before processing
 the data in Python, I first used Excel to format the dataset to be readable into a dataframe using pandas. Once it's imported,
 the dataset's unneeded columns are dropped. Only the name, calorie, protein, carbohydrate and total fat columns are kept. The
@@ -17,6 +18,7 @@ calories, carbohydrate, protein, and fat are calculated. The dataset has rows in
 as one entire name, so those names were split into separate rows with identical nutrient profiles.
 
 nutrient_tracker.py
+
 This script creates a Tracker class that is used to ask the user for what foods they've eaten and how much they've eaten.
 The food's name, along with the associated amount, calories, carbohydrates, proteins, and fats, are appended to running lists,
 which are saved as the Tracker object's attributes. The datetime module is used to record the date of the entry. The Tracker
