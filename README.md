@@ -5,6 +5,7 @@ The database is based on a dataset from the U.S. Department of Agriculture's Agr
 other comprehensive datasets online, but this is the best one I've found.
 
 Reference to dataset:
+
 U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food and Nutrient Database for Dietary Studies
 2017-2018. Food Surveys Research Group Home Page, http://www.ars.usda.gov/nea/bhnrc/fsrg
 
@@ -36,13 +37,16 @@ other Python packages in a future update.
 
 References:
 I was able to build this program by learning tkinter from a course on Udemy.
+
 Yu, Angela. (Dec 2021). "100 Days of Code: The Complete Python Pro Bootcamp for 2022". Available at
 https://www.udemy.com/course/100-days-of-code/
 
 I also used a StackOverflow post to help process an image for the logo.
+
 bastelflp. (Nov 17, 2017). "Tkinter error: Couldn't recognize data in image file". Available at
 https://stackoverflow.com/questions/47357090/tkinter-error-couldnt-recognize-data-in-image-file
 
-The logo image is a modified version of an image from Pixabay.
+The logo image is a cropped and slightly modified version of an image from Pixabay.
+
 Lisionka. (2022). Food vector image (not actual title of image). Available at 
 https://pixabay.com/vectors/icon-flat-vector-pizza-1447860/
