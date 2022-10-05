@@ -10,6 +10,7 @@ U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food a
 
 ## Data Processing
 data_processing.py
+
 This script processes the dataset into a working database that can be referenced by the nutrient tracker. Before importing
 the data into Python, I first used Excel to format the dataset so that processing is easier. Once it's imported, the dataset's
 unneeded columns are dropped. Only the name, calorie, protein, carbohydrate and total fat columns are kept. The dataset contains
@@ -23,6 +24,7 @@ accuracy of the nutrient profiles of those items.
 ![Screenshot 2022-10-05 194819](https://user-images.githubusercontent.com/114125018/194183958-f9f5250c-fa99-48c9-8f0c-0d9255b9baf9.jpg)
 
 nutrient_tracker.py (Updated 10/5/22)
+
 The original version of this script asks the user for their diet in the console. Now, this updated script creates a GUI
 using the tkinter package for the user to interact with the program. The script creates a window that displays a logo for
 the nutrient tracker and has fields for the user to type in the name of the food and the amount eaten in grams. The program will
