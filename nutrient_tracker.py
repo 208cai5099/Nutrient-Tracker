@@ -1,87 +1,82 @@
 from data_processing import database
-import pandas as pd
 from datetime import date
+import tkinter
+from PIL import ImageTk, Image
+from tkinter import messagebox
 
-class Tracker:
-    def __init__(self):
-        self.food = []
-        self.amount = []
-        self.calories = []
-        self.protein = []
-        self.fat = []
-        self.carbohydrate = []
-        self.date = []
+def calculate():
+    food = food_entry.get()
+    amount = amount_entry.get()
 
-    def entry(self):
-        food = input('What food did you eat? ').lower()
-        if food not in list(database.Name):
-            while True:
-                possible_foods = []
-                for possible in list(database.Name):
-                    if food in possible:
-                        possible_foods.append(possible)
-                if len(possible_foods) == 0:
-                    food = input('Sorry, that food is not recognized in our database. Please re-enter: ').lower()
-                else:
-                    food = input(f'Sorry, that food is not recognized in our database. Did you perhaps mean one of the choices: \n'
-                                 f'{str(possible_foods).strip("[]")}? \n'
-                                 'Please re-enter: ').lower()
-                if food in list(database.Name):
-                    break
-
-        first_time = True
-        while True:
-            try:
-                if first_time:
-                    amount = float(input('How much did you eat (in grams)? '))
-                else:
-                    amount = float(input('How much did you eat (in grams)? Please enter numeric value. '))
-                break
-            except:
-                first_time = False
-                continue
-
-        self.food.append(food)
-        self.amount.append(amount)
-        self.calories.append(round(amount * float(database[database['Name'] == food]['Calories']), 0))
-        self.carbohydrate.append(round(amount * float(database[database['Name'] == food]['Carbohydrate(g)']), 0))
-        self.protein.append(round(amount * float(database[database['Name'] == food]['Protein(g)']), 0))
-        self.fat.append(round(amount * float(database[database['Name'] == food]['TotalFat(g)']), 0))
-        self.date.append(date.today())
-
-    def recorder(self):
-        self.entry()
-        records = pd.DataFrame({'Date': self.date, 'Name': self.food, 'Amount (g)': self.amount, 'Calories': self.calories,
-                                'Carbohydrate(g)': self.carbohydrate, 'Protein(g)': self.protein, 'Fat(g)': self.fat})
-        total = pd.DataFrame({'Date': f'{date.today()}', 'Name': 'Total', 'Amount (g)': [records['Amount (g)'].sum()],
-                              'Calories': [records['Calories'].sum()], 'Carbohydrate(g)': [records['Carbohydrate(g)'].sum()],
-                              'Protein(g)': [records['Protein(g)'].sum()], 'Fat(g)': [records['Fat(g)'].sum()]})
-        records = pd.concat([records, total], axis = 0)
-        print(records)
-        print()
-        return records
-
-print('Welcome to Nutrient Tracker!')
-print(f'Here is a list of food items in our database: \n'
-      f'{str(list(database.Name.unique())).strip("[]")}')
-
-tracker = Tracker()
-report = tracker.recorder()
-while True:
-    again = input("Would you like to add another food? Enter 'Y' or 'N': ")
-    if again is 'Y' or again is 'y':
-        report = tracker.recorder()
-        continue
-    elif again is 'N' or again is 'n':
-        break
+    if food == '' or amount == '':
+        messagebox.showerror(title = 'Error', message = 'Please fill out all entries.')
     else:
-        print("Sorry, we don't recognize that response.")
-        continue
+        if food not in list(database.Name):
+            possible_foods = []
+            for possible in list(database.Name):
+                if food in possible:
+                    possible_foods.append(possible)
+                    if len(possible_foods) == 3:
+                        break
+            if len(possible_foods) == 0:
+                messagebox.showerror(title = 'Error', message = f'{food} is not found in database. Please check spelling or '
+                                                                f'enter a different food item.')
+            elif len(possible_foods) >= 1:
+                messagebox.showerror(title = 'Error', message = f'{food} is not found in database. Here are some similar '
+                                                                f'items: \n {str(possible_foods).strip("[]")}.')
+        try:
+            amount = float(amount)
+            calories = round(amount * float(database[database['Name'] == food]['Calories']), 0)
+            carbohydrate = round(amount * float(database[database['Name'] == food]['Carbohydrate(g)']), 0)
+            protein = round(amount * float(database[database['Name'] == food]['Protein(g)']), 0)
+            fat = round(amount * float(database[database['Name'] == food]['TotalFat(g)']), 0)
+            today_date = str(date.today())
 
-response = input("Would you like to save your data? Enter 'Y' or 'N': ")
-if response is 'Y' or response is 'y':
-    report.to_csv(f'{date.today()}_report.csv')
-    print('Data saved as csv file.')
-    print('Thank you for using the Nutrient Tracker!')
-elif response is 'N' or response is 'n':
-    print('Thank you for using the Nutrient Tracker!')
+            amount_label.config(text = 'How much did you eat (g)?')
+
+            return [today_date, food, amount, calories, carbohydrate, protein, fat]
+        except:
+            amount_label.config(text = 'How much did you eat (g)?\n'
+                                       'Please enter numeric value')
+
+def save():
+    entry = calculate()
+    if entry is None:
+        pass
+    else:
+        entry = str(entry).strip('[]')
+        with open('nutrient_log.txt', 'a') as file:
+            file.write(f'{entry} \n')
+
+# Create a window
+window = tkinter.Tk()
+window.minsize()
+window.title('Nutrient Tracker')
+window.config(bg = '#F8EDE3', padx = 20, pady = 20)
+
+# Add logo
+canvas = tkinter.Canvas(width= 500, height= 300, bg = '#F8EDE3', highlightthickness=0)
+food = Image.open('food.png')
+food = ImageTk.PhotoImage(food)
+canvas.create_image(275, 150, image = food)
+canvas.create_text(275, 30, text = 'Welcome to the Nutrient Tracker!', font = ('Arial', 18, 'bold'))
+canvas.grid(row = 0, column = 0, columnspan=2)
+
+# Add food and amount labels and entries
+food_label = tkinter.Label(text = 'What did you eat?', bg = '#F8EDE3', font = ('Arial', 10, 'bold'))
+food_label.grid(row = 2, column = 0)
+
+food_entry = tkinter.Entry()
+food_entry.grid(row = 2, column = 1)
+
+amount_label = tkinter.Label(text = 'How much did you eat (g)?', bg = '#F8EDE3', font = ('Arial', 10, 'bold'))
+amount_label.grid(row = 3, column = 0)
+
+amount_entry = tkinter.Entry()
+amount_entry.grid(row = 3, column = 1)
+
+# Add save button
+save_button = tkinter.Button(text = 'Save', bg = 'white', font = ('Arial', 10, 'bold'), command = save)
+save_button.grid(row = 3, column = 2)
+
+window.mainloop()
