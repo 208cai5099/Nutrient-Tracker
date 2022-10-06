@@ -31,9 +31,9 @@ using the tkinter package for the user to interact with the program. The script 
 the nutrient tracker and has fields for the user to type in the name of the food and the amount eaten in grams. The program will
 ask the user for alternative food names if the input name is not found in the database, and it can offer similarly named
 foods in the database as possible inputs. The program will also not accept any non-numeric input for the amount. The entries
-are all saved as separate rows in a txt file titled 'nutrient_log.txt'. Although it's a txt file, it's formatted like a csv
-file that can be converted into a dataframe using pandas. This will allow the user to visualize their nutrient intake using
-other Python packages in a future update.
+are all saved as separate rows in an already existing txt file titled 'nutrient_log.txt'. Although it's a txt file, it's
+formatted like a csv file that can be converted into a dataframe using pandas. This will allow the user to visualize their 
+nutrient intake using other Python packages in a future update.
 
 References:
 
