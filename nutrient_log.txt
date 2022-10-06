@@ -1,0 +1,1 @@
+Date, Food, Amount, Calories, Carbohyrate, Protein, Fat
