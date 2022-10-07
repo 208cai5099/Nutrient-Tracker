@@ -10,6 +10,7 @@ U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food a
 2017-2018. Food Surveys Research Group Home Page, http://www.ars.usda.gov/nea/bhnrc/fsrg
 
 ## Data Processing
+
 data_processing.py
 
 This script processes the dataset into a working database that can be referenced by the nutrient tracker. Before importing
@@ -22,32 +23,60 @@ name, so those names were split into separate names each with identical nutrient
 accuracy of the nutrient profiles of those items.
 
 ## GUI Interface via tkinter
-![Screenshot 2022-10-05 194819](https://user-images.githubusercontent.com/114125018/194183958-f9f5250c-fa99-48c9-8f0c-0d9255b9baf9.jpg)
 
-nutrient_tracker.py (Updated 10/5/22)
+nutrient_tracker.py (Updated 10/7/22)
 
-The original version of this script asks the user for their diet in the console. Now, this updated script creates a GUI
-using the tkinter package for the user to interact with the program. The script creates a window that displays a logo for
+The original version of this script asks the user for their food consumption in the console. Now, this updated script creates a
+GUI using the tkinter package for the user to interact with the program. The script creates a window that displays a logo for
 the nutrient tracker and has fields for the user to type in the name of the food and the amount eaten in grams. The program will
-ask the user for alternative food names if the input name is not found in the database, and it can offer similarly named
-foods in the database as possible inputs. The program will also not accept any non-numeric input for the amount. The entries
-are all saved as separate rows in an already existing txt file titled 'nutrient_log.txt'. Although it's a txt file, it's
-formatted like a csv file that can be converted into a dataframe using pandas. This will allow the user to visualize their 
-nutrient intake using other Python packages in a future update.
+ask the user for an alternative input if the input name is not found in the database, and it can offer other foods items with
+characters that match those in the input. The program will also not accept any non-numeric input for the amount. The entries
+are all saved as separate rows in an already existing txt file titled 'nutrient_log.txt'. The file uses Date, Food, Amount,
+Calories, Carbohydrate, Protein, and Fat as the columns, and there must be an empty line at the bottom of the file in order
+for the entries to be saved in a readable and processable format for visualization (see below). Although it's a txt file, the
+entries are delimited by commas like a csv file so that it can be converted into a dataframe using the pandas package.
+![Screenshot 2022-10-07 193615](https://user-images.githubusercontent.com/114125018/194675539-3ada20d3-a509-4bf4-a524-17ca0f280b32.jpg)
 
-References:
+The user has an option to visualize their caloric, fat, carbohydrate, and protein intakes from a certain date to a
+certain date. This is done using the 'Visualize' button that takes the start date and end date and calls on functions that
+sum the nutrient intakes on each day using the pandas package and graphs the results using the seaborn and matplotlib packages.
+The graph has 4 separate plots for calories, carbohydrates, proteins, and fats.
+![Screenshot 2022-10-07 194158](https://user-images.githubusercontent.com/114125018/194675847-3531a8fd-db7a-47d0-8f44-9917b4a6f07b.jpg)
 
-I was able to build this program by learning tkinter from a course on Udemy.
 
-Yu, Angela. (Dec 2021). "100 Days of Code: The Complete Python Pro Bootcamp for 2022". Available at
-https://www.udemy.com/course/100-days-of-code/
+## References
 
-I also used a StackOverflow post to help process an image for the logo.
+1. I was able to build this program by learning tkinter from a course on Udemy.
 
-bastelflp. (Nov 17, 2017). "Tkinter error: Couldn't recognize data in image file". Available at
-https://stackoverflow.com/questions/47357090/tkinter-error-couldnt-recognize-data-in-image-file
+   Yu, Angela. (Dec 2021). "100 Days of Code: The Complete Python Pro Bootcamp for 2022". Available at
+   https://www.udemy.com/course/100-days-of-code/
 
-The logo image is a cropped and slightly modified version of an image from Pixabay.
+2. The logo image is a cropped and slightly modified version of an image from Pixabay.
 
-Lisionka. (2022). Food vector image (not actual title of image). Available at 
-https://pixabay.com/vectors/icon-flat-vector-pizza-1447860/
+   Lisionka. (2022). Food vector image (not actual title of image). Available at
+   https://pixabay.com/vectors/icon-flat-vector-pizza-1447860/
+
+3. I also used a StackOverflow post to use PIL to process the logo image png file.
+
+   bastelflp. (Nov 17, 2017). "Tkinter error: Couldn't recognize data in image file". Available at
+   https://stackoverflow.com/questions/47357090/tkinter-error-couldnt-recognize-data-in-image-file
+
+4. I read a code example from one of Seaborn's Gallery pages to learn how to create subplots.
+
+   Waskom, Michael. (2022). "Color palette choices". Available at
+   https://seaborn.pydata.org/examples/palette_choices.html
+
+5. I looked up multiple resources to create and use the combobox class to create the dropdown menus.
+
+   Tkinter 8.6.12 documentation. (2012). Available at 
+   https://www.tcl.tk/man/tcl8.6/TkCmd/ttk_combobox.html
+   
+   Roseman, Mark. (2022) "Basic Widgets". Avalable at
+   https://tkdocs.com/tutorial/widgets.html#combobox
+   
+   Panigrahi, Kiran. (Oct 26, 2021). "How to use a StringVar object in an Entry widget in Tkinter?" Available at
+   https://www.tutorialspoint.com/how-to-use-a-stringvar-object-in-an-entry-widget-in-tkinter
+
+6. I used the following website to find codes for different colors to improve my GUI aesthetics.
+   
+   Color Hunt. Available at https://colorhunt.co/
