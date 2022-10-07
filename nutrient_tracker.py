@@ -102,8 +102,6 @@ amount_entry.grid(row = 2, column = 1)
 save_button = tkinter.Button(text = 'Save Entry', bg = 'white', font = ('Arial', 10, 'bold'), command = save)
 save_button.grid(row = 2, column = 2)
 
-#---------------------------- VISUALIZE THE DATA -----------------------------------#
-
 # Import the list of dates in the log records
 df = pd.read_csv('nutrient_log.txt')
 dates_list = list(df.Date.unique())
@@ -142,7 +140,6 @@ def aggregate_data(start, end):
             dates = dates_list[start_index : end_index + 1]
         subset = df[df['Date'].isin(dates)]
         graph_data = subset.groupby(by = 'Date').sum()
-        print(graph_data)
         return graph_data
 
 def graphing(start, end):
