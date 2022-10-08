@@ -1,11 +1,10 @@
 # Nutrient-Tracker
-The nutrient tracker program asks the user what food they've eaten and how much they've eaten in grams. The tracker will
-reference a database of foods and their nutrient profiles to record the calories, carbohydrates, proteins, and fats consumed.
-The database is based on a dataset from the U.S. Department of Agriculture's Agricultural Research Service. I tried to find
+The nutrient tracker program asks the user what food they've eaten and how much they've eaten in grams. The tracker will reference
+a pandas dataframe of foods and their nutrient profiles to calculate the calories, carbohydrates, proteins, and fats consumed.
+The dataframe is based on a dataset from the U.S. Department of Agriculture's Agricultural Research Service. I tried to find
 other comprehensive datasets online, but this is the best one I've found.
 
 Reference to dataset:
-
 U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food and Nutrient Database for Dietary Studies
 2017-2018. Food Surveys Research Group Home Page, http://www.ars.usda.gov/nea/bhnrc/fsrg
 
@@ -13,7 +12,7 @@ U.S. Department of Agriculture, Agricultural Research Service. 2020. USDA Food a
 
 data_processing.py
 
-This script processes the dataset into a working database that can be referenced by the nutrient tracker. Before importing
+This script processes the dataset into a dataframe of food info that can be referenced by the nutrient tracker. Before importing
 the data into Python, I first used Excel to format the dataset so that processing is easier. Once it's imported, the dataset's
 unneeded columns are dropped. Only the name, calorie, protein, carbohydrate and total fat columns are kept. The dataset contains
 two columns that describe the food in each row, but for simplicity, only one of them is kept to be the food's identifying name.
@@ -24,14 +23,14 @@ accuracy of the nutrient profiles of those items.
 
 ## GUI Interface via tkinter
 
-nutrient_tracker.py (Updated 10/7/22)
+nutrient_tracker.py (Updated 10/8/22)
 
 The original version of this script asks the user for their food consumption in the console. Now, this updated script creates a
 GUI using the tkinter package for the user to interact with the program. The script creates a window that displays a logo for
 the nutrient tracker and has fields for the user to type in the name of the food and the amount eaten in grams. The program will
-ask the user for an alternative input if the input name is not found in the database, and it can offer other foods items with
-characters that match those in the input. The program will also not accept any non-numeric input for the amount. The entries
-are all saved as separate rows in an already existing txt file titled 'nutrient_log.txt'. The file uses Date, Food, Amount,
+ask the user for an alternative input if the input name is not found in the dataframe of food info, and it can offer other foods
+items with characters that match those in the input. The program will also not accept any non-numeric input for the amount. The
+entries are all saved as separate rows in an already existing txt file titled 'nutrient_log.txt'. The file uses Date, Food, Amount,
 Calories, Carbohydrate, Protein, and Fat as the columns, and there must be an empty line at the bottom of the file in order
 for the entries to be saved in a readable and processable format for visualization (see below). Although it's a txt file, the
 entries are delimited by commas like a csv file so that it can be converted into a dataframe using the pandas package.
